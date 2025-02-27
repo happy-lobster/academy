@@ -1,0 +1,12 @@
+name: Docker Build
+description: Build application and create a new Docker image
+inputs:
+  dockerfile_path:
+    description: "Path to the Dockerfile"
+    required: false
+    default: "Dockerfile"
+runs:
+  using: composite
+  steps:
+    - run: docker build . --file ${{ github.event.inputs.dockerfile_path }} --tag academy:$(date +%s)
+      shell: bash
