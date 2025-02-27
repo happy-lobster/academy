@@ -16,7 +16,7 @@ quarkus:
   datasource:
     db-kind: postgresql
     jdbc:
-      url: jdbc:postgresql://localhost:5432/workstation-rack
+      url: jdbc:postgresql://postgres:postgres@localhost:5432/workstation-rack
       initial-size: 2
       min-size: 2
       max-size: 5
