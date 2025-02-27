@@ -27,7 +27,7 @@ runs:
       shell: bash
     - name: Set full image name
       run: |
-        echo "DOCKER_IMAGE_NAME=${{ inputs.usenrame }}/${{ inputs.image_name }}:$TAG" >> $GITHUB_ENV
+        echo "DOCKER_IMAGE_NAME=${{ inputs.username }}/${{ inputs.image_name }}:$TAG" >> $GITHUB_ENV
       shell: bash
     - name: Build the image
       run: |
