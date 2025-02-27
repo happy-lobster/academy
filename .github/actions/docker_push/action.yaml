@@ -1,0 +1,39 @@
+name: Docker Build
+description: Build application and create a new Docker image
+inputs:
+  dockerfile_path:
+    description: "Path to the Dockerfile"
+    required: false
+    default: "Dockerfile"
+  image_name:
+    description: "Name of the Docker image to be built"
+    required: true
+  image_tag:
+    description: "The tag of the image to be built"
+    required: false
+  username:
+    description: "Docker Hub username"
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Set tag
+      run: |
+        if [ -z "${{ inputs.image_tag }}" ]; then
+          echo "TAG=$(date + %s)" >> $GITHUB_ENV
+        else
+          echo "TAG=${{ inputs.image_tag }}" >> $GITHUB_ENV
+        fi
+      shell: bash
+    - name: Set full image name
+      run: |
+        echo "DOCKER_IMAGE_NAME=${{ inputs.usenrame }}/${{ inputs.image_name }}:$TAG" >> $GITHUB_ENV
+      shell: bash
+    - name: Build the image
+      run: |
+        docker build . --file ${{ inputs.dockerfile_path }} --tag $DOCKER_IMAGE_NAME
+      shell: bash
+    - name: Push the image to Docker Hub
+      run: |
+        docker push $DOCKER_IMAGE_NAME
+      shell: bash
