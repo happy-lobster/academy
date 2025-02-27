@@ -1,0 +1,13 @@
+name: Build
+description: Build application with Maven and create a new Docker image
+inputs:
+  dockerfile_path:
+    description: "Path to the Dockerfile"
+    required: false
+    default: "Dockerfile"
+runs:
+  using: composite
+  steps:
+    - run: |
+        echo "Update me with the necessary steps to build the application"
+      shell: bash
