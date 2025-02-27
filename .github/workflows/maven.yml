@@ -27,16 +27,12 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - name: Create Docker image
-      run: docker build . --file ./src/main/docker/Dockerfile.jvm --tag academy:$(date +%s)
-    - name: List Docker images
-      run: docker images
     - uses: happy-lobster/academy/.github/actions/maven_build@main
     - uses: happy-lobster/academy/.github/actions/docker_build@main
       with:
         dockerfile_path: ./src/main/docker/Dockerfile.jvm
+    - name: List Docker images
+      run: docker images
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
