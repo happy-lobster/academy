@@ -1,0 +1,53 @@
+quarkus:
+  http:
+    cors:
+      ~: true
+      origins:
+        - http://localhost:4200
+      headers:
+        - accept
+        - authorization
+        - content-type
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+  datasource:
+    db-kind: postgresql
+    devservices:
+      enabled: true
+      reuse: false
+      image-name: postgres:14.10-alpine
+      container-env:
+        POSTGRES_DB: workstation-rack
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      port: 5432
+      volumes:
+        db/init-db: /docker-entrypoint-initdb.d
+      db-name: workstation-rack
+      username: postgres
+      password: postgres
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/workstation-rack
+      initial-size: 2
+      min-size: 2
+      max-size: 5
+  liquibase:
+    migrate-at-start: true
+    change-log: db/changelog.xml
+  hibernate-orm:
+    packages: com.ctw.workstation
+    validate-in-dev-mode: false
+    database:
+      generation: none
+    log:
+      sql: ${hibernate_orm_log_sql:false}
+  log:
+    console:
+      json: false
+    category:
+      "com.ctw.workstation":
+        console:
+          format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%X{request.id}] [%X{request.path}] [%c] %t %n%s%e%n"
