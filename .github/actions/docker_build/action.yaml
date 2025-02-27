@@ -8,5 +8,5 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: docker build . --file ${{ github.event.inputs.dockerfile_path }} --tag academy:$(date +%s)
+    - run: docker build . --file ${{ inputs.dockerfile_path }} --tag academy:$(date +%s)
       shell: bash
