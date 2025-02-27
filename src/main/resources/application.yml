@@ -15,20 +15,6 @@ quarkus:
         - DELETE
   datasource:
     db-kind: postgresql
-    devservices:
-      enabled: true
-      reuse: false
-      image-name: postgres:14.10-alpine
-      container-env:
-        POSTGRES_DB: workstation-rack
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-      port: 5432
-      volumes:
-        db/init-db: /docker-entrypoint-initdb.d
-      db-name: workstation-rack
-      username: postgres
-      password: postgres
     jdbc:
       url: jdbc:postgresql://localhost:5432/workstation-rack
       initial-size: 2
