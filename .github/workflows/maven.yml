@@ -31,6 +31,8 @@ jobs:
     - uses: happy-lobster/academy/.github/actions/docker_build@main
       with:
         dockerfile_path: ./src/main/docker/Dockerfile.jvm
+        image_name: academy
+        image_tag: 1.0
     - name: List Docker images
       run: docker images
 
